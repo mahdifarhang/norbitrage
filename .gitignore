@@ -1,0 +1,39 @@
+# IntelliJ project files
+.idea/
+*.iml
+out
+gen
+!.gitkeep
+
+
+# macOS template
+*.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Django Project Files
+*.sqlite3
+*.sqlite3-journal
+*.session
+*.session-journal
+__pycache__/
+.pyc
+
+## static and media directory
+media/
+statics/
+db/
+
+# redis fils
+*.rdb
+
+# Zip files
+*.tar.gz
+*.zip
+*.mo
+
+.sass-cache
+
+_logs/
+/staticfiles/
