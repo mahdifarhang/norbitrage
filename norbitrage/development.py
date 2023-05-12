@@ -16,7 +16,7 @@ DATABASES = {
 		'PASSWORD': 'norbitrage_database_password',
 		# PASSWORD is not required in PostgreSQL local peer mod, but required while using docker
 		'HOST': '127.0.0.1',  # make sure this point to correct database host in docker
-		'PORT': 5432,
+		'PORT': 5430,
 		'CONN_MAX_AGE': 600,  # persistent connection to improves performance
 	}
 }
