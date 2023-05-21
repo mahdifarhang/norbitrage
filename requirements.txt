@@ -1,2 +1,7 @@
 Django>=4.2,<5.0
+
+# Postgress connection with django client library
 psycopg2-binary>=2.9.6
+
+# Requesting library
+requests>=2.30.0

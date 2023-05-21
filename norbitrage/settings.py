@@ -124,6 +124,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+NOBITEX_AUTHORIZATION_TOKEN = 'be009cfe456a589c5b1722db553777fa06209bd9'
+
+NOBITEX_API_BASE_URL = 'https://api.nobitex.ir/'
+
 # Cache Settings
 # CACHES = {
 # 	"default": {
