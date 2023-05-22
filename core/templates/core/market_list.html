@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Market List</title>
+</head>
+<body>
+<table>
+  <thead>
+    <tr>
+      <th>Market</th>
+      <th>Orderbook</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for market in markets %}
+      <tr>
+        <td>{{ market }}</td>
+        <td><a href="{% url 'core:load_orderbook' market=market %}">Click Me</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+</body>
+</html>
