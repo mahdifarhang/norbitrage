@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse
-from django.conf import settings
-# Create your views here.
+from core.tasks import load_market_orderbook
 
-def test_view(request):
-    return JsonResponse({
-        'pong': True,
-        'status': 'OK',
-    }, status=200)
-
-
-def get_orders(request):
-    base_url = getattr(settings, 'NOBITEX_API_BASE_URL', 'https://api.nobitex.ir/')
+# Todo: Handle permissions
+def load_orderbook(request, market):
+    try:
+        orderbook = load_market_orderbook(market)
+        return JsonResponse({
+            'status': 'OK',
+            'result': orderbook,
+        }, status=200)
+    except Exception as exp:
+        return JsonResponse({
+            'status': 'Not OK',
+            'error': f'Error Happened: {exp}'
+        }, status=400)

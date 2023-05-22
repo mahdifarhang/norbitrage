@@ -5,5 +5,5 @@ from core.views import *
 app_name='core'
 
 urlpatterns = [
-    path('ping/', test_view, name='test_view')
+    path('load-orderbook/<str:market>', load_orderbook, name='load_orderbook'),
 ]
