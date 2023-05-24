@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'core'
+	'core.apps.CoreConfig'
 ]
 
 MIDDLEWARE = [
@@ -129,17 +129,17 @@ NOBITEX_AUTHORIZATION_TOKEN = 'be009cfe456a589c5b1722db553777fa06209bd9'
 
 NOBITEX_API_BASE_URL = 'https://api.nobitex.ir/'
 
-# Cache Settings
-# CACHES = {
-# 	"default": {
-# 		"BACKEND": "django_redis.cache.RedisCache",
-# 		"LOCATION": os.getenv('DJANGO_CACHE', 'redis://localhost:6379/dj-cache'),
-# 		"OPTIONS": {
-# 			"CLIENT_CLASS": "django_redis.client.DefaultClient"
-# 		},
-# 		"KEY_PREFIX": "example"
-# 	}
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6380/1",
+        'TIMEOUT': None,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        # "KEY_PREFIX": "example"
+    }
+}
 
 if DEBUG == True:
 	from .development import *

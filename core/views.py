@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.template.response import TemplateResponse
 from core.tasks import load_market_orderbook
+from django.core.cache import cache
 
 
 # Todo: Handle Permission
@@ -19,6 +20,7 @@ def market_list(request):
 def load_orderbook(request, market):
     try:
         orderbook = load_market_orderbook(market)
+        # print(cache.get('orderbook_data_IRTUSDT'))
         return JsonResponse({
             'status': 'OK',
             'result': orderbook,

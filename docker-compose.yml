@@ -17,3 +17,8 @@ services:
       PGTZ: 'Asia/Tehran'
       ## To go to psql cli, run `docker compose exec db bash` and
       ## run `psql --user notifier_db_user -d notifier` (\l - \q - \h will help you)
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+     - "0.0.0.0:6380:6379"
