@@ -4,7 +4,18 @@ from decimal import Decimal
 from core.requester import APIRequester
 from django.core.cache import cache
 
-
+coin_list = [
+    'BTC',
+    'ETH',
+    'DOGE',
+    'SHIB',
+    '100K_FLOKI',
+    'XRP',
+    'FTM',
+    'MATIC',
+    'BNB',
+    'TRX',
+]
 def load_market_orderbook(market:str):
     requester = APIRequester()
     # Todo: Handle wrong market input (Problem1: doesn't exist)
@@ -15,7 +26,7 @@ def load_market_orderbook(market:str):
     return response
 
 
-def check_coin(coin='BTC'):
+def check_coin(coin):
     requester = APIRequester()
     usdt_response = requester(f'v2/orderbook/{coin}USDT')
     irt_response = requester(f'v2/orderbook/{coin}IRT')
@@ -34,13 +45,17 @@ def check_coin(coin='BTC'):
     }
 
     if buy_in_usdt_sell_in_irt['buy_price'] < buy_in_usdt_sell_in_irt['sell_price']:
-        print('____________________')
+        print(f'___________{coin}___________')
         print('profits: USDT -> IRT')
         print(f"Buy Price: {buy_in_usdt_sell_in_irt['buy_price']}")
         print(f"Sell Price: {buy_in_usdt_sell_in_irt['sell_price']}")
 
     if buy_in_irt_sell_in_usdt['buy_price'] < buy_in_irt_sell_in_usdt['sell_price']:
-        print('____________________')
+        print(f'___________{coin}___________')
         print('profits: IRT -> USDT')
         print(f"Buy Price: {buy_in_irt_sell_in_usdt['buy_price']}")
         print(f"Sell Price: {buy_in_irt_sell_in_usdt['sell_price']}")
+
+def check_all_coins(coins=coin_list):
+    for coin in coins:
+        check_coin(coin)
