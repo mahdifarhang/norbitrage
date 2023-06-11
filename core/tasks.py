@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from celery import shared_task
 
 from core.requester import APIRequester
 from django.core.cache import cache
@@ -56,6 +57,7 @@ def check_coin(coin):
         print(f"Buy Price: {buy_in_irt_sell_in_usdt['buy_price']}")
         print(f"Sell Price: {buy_in_irt_sell_in_usdt['sell_price']}")
 
+@shared_task()
 def check_all_coins(coins=coin_list):
     for coin in coins:
         check_coin(coin)

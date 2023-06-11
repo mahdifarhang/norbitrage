@@ -141,6 +141,10 @@ CACHES = {
     }
 }
 
+# Celery settings
+CELERY_BROKER_URL = "redis://127.0.0.1:6380"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6380"
+
 if DEBUG == True:
 	from .development import *
 else:
