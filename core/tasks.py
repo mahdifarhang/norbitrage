@@ -1,4 +1,4 @@
-import json
+from django.conf import settings
 from decimal import Decimal
 from celery import shared_task
 
@@ -46,18 +46,31 @@ def check_coin(coin):
     }
 
     if buy_in_usdt_sell_in_irt['buy_price'] < buy_in_usdt_sell_in_irt['sell_price']:
-        print(f'___________{coin}___________')
-        print('profits: USDT -> IRT')
-        print(f"Buy Price: {buy_in_usdt_sell_in_irt['buy_price']}")
-        print(f"Sell Price: {buy_in_usdt_sell_in_irt['sell_price']}")
+        text = f"___________{coin}___________\n" \
+               f"profits: USDT -> IRT\n" \
+               f"Buy Price: {buy_in_usdt_sell_in_irt['buy_price']}\n" \
+               f"Sell Price: {buy_in_usdt_sell_in_irt['sell_price']}\n"
+        print(text)
+        send_telegram.delay(text)
 
     if buy_in_irt_sell_in_usdt['buy_price'] < buy_in_irt_sell_in_usdt['sell_price']:
-        print(f'___________{coin}___________')
-        print('profits: IRT -> USDT')
-        print(f"Buy Price: {buy_in_irt_sell_in_usdt['buy_price']}")
-        print(f"Sell Price: {buy_in_irt_sell_in_usdt['sell_price']}")
-
+        text = f"___________{coin}___________\n" \
+               f"profits: IRT -> USDT\n" \
+               f"Buy Price: {buy_in_irt_sell_in_usdt['buy_price']}\n" \
+               f"Sell Price: {buy_in_irt_sell_in_usdt['sell_price']}\n"
+        print(text)
+        send_telegram.delay(text)
 @shared_task(name='check_all_coins')
 def check_all_coins(coins=coin_list):
     for coin in coins:
         check_coin(coin)
+
+@shared_task()
+def send_telegram(message):
+    telegram_bot_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', 'hellow-world')
+    telegram_chat_id = getattr(settings, 'TELEGRAM_CHAT_ID', 'hellow-world')
+    requester = APIRequester('https://api.telegram.org')
+    usdt_response = requester(f'/bot{telegram_bot_token}/sendMessage', data={
+        'chat_id': telegram_chat_id,
+        'text': message
+    })
