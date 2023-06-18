@@ -9,3 +9,8 @@ You need celery to be running as a Consumer app. use command bellow:
 python -m celery -A norbitrage worker -l info
 ```
 
+And for celery beat to run, use command bellow:
+```shell
+python -m celery -A norbitrage beat -l info
+```
+

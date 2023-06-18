@@ -57,7 +57,7 @@ def check_coin(coin):
         print(f"Buy Price: {buy_in_irt_sell_in_usdt['buy_price']}")
         print(f"Sell Price: {buy_in_irt_sell_in_usdt['sell_price']}")
 
-@shared_task()
+@shared_task(name='check_all_coins')
 def check_all_coins(coins=coin_list):
     for coin in coins:
         check_coin(coin)
