@@ -10,7 +10,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     # Executes every Monday morning at 7:30 a.m.
-    'runs-every-ten-seconds': {
+    'every_ten_seconds-check_coins': {
         'task': 'check_all_coins',
         # 'schedule': crontab(minute='*/10', hour='2', day_of_week='8', day_of_month='*', month_of_year='*'),
         'schedule': 10,
