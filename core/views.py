@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.template.response import TemplateResponse
-from core.tasks import load_market_orderbook, check_all_coins
+from core.tasks import load_market_orderbook, check_coin_task
 from django.core.cache import cache
 
 
@@ -33,7 +33,7 @@ def load_orderbook(request, market):
 
 def check_coin_price_difference(request):
     try:
-        check_all_coins.delay()
+        check_coin_task.delay()
         return JsonResponse({
             'status': 'OK',
         }, status=200)
