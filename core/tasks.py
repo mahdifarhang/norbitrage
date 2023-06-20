@@ -87,7 +87,7 @@ def check_coin(coin):
                f"USDTIRT price: {Decimal(usdtirt_price)}\n" \
                f"Difference Percentage: {(buy_in_irt_sell_in_usdt['sell_price'] - buy_in_irt_sell_in_usdt['buy_price']) / buy_in_irt_sell_in_usdt['buy_price'] * 100}%\n"
         print(text)
-        # send_telegram.delay(text)
+        send_telegram_message_task.delay(text, chat_id)
 
 @shared_task(name='check_coin_task')
 def check_coin_task():
@@ -96,12 +96,6 @@ def check_coin_task():
     coin = COIN_LIST[last_coin_id]
     check_coin(coin)
 
-@shared_task()
-def send_telegram(message):
-    telegram_bot_token = getattr(settings, 'TELEGRAM_BOT_TOKEN', 'hellow-world')
-    telegram_chat_id = getattr(settings, 'TELEGRAM_CHAT_ID', 'hellow-world')
-    requester = APIRequester('https://api.telegram.org')
-    usdt_response = requester(f'/bot{telegram_bot_token}/sendMessage', data={
-        'chat_id': telegram_chat_id,
-        'text': message
-    })
+@shared_task(name='send_telegram_message_task')
+async def send_telegram_message_task(message, chat_id):
+    await send_telegram_message(message, chat_id)
